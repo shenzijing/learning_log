@@ -49,7 +49,8 @@ def new_topic(request):
 @login_required
 def new_entry(request,topic_id):
 	"""在特定的主题中添加条目"""
-	topic = Topic.objects.get(id=topic_id)
+	# ~ topic = Topic.objects.get(id=topic_id)
+	topic = get_object_or_404(Topic, id=topic_id)
 	check_topic_owner(request,topic)
 	#判断请求方法是POST还是GET
 	if request.method != 'POST':
@@ -73,7 +74,8 @@ def new_entry(request,topic_id):
 def edit_entry(request,entry_id):
 	"""编辑既有条目"""
 	#获取用户要修改的条目对象，以及该条目相关联的主题
-	entry = Entry.objects.get(id=entry_id)
+	# ~ entry = Entry.objects.get(id=entry_id)
+	entry = get_object_or_404(Entry, id=entry_id)
 	topic = entry.topic
 	check_topic_owner(request,topic)
 	
